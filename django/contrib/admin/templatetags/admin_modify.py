@@ -62,8 +62,11 @@ def submit_row(context):
     can_save = (has_change_permission and change) or (has_add_permission and add) or has_editable_inline_admin_formsets
     can_save_and_continue = not is_popup and can_save and has_view_permission and show_save_and_continue
     can_change = has_change_permission or has_editable_inline_admin_formsets
-    can_save_and_add_another = context.get('show_save_and_add_another',True) and has_add_permission and not is_popup and
-            (not save_as or add) and can_save
+    can_save_and_add_another = (
+        context.get('show_save_and_add_another',True) and 
+        has_add_permission and not is_popup and 
+        (not save_as or add) and can_save
+    )
     ctx = Context(context)
     ctx.update({
         'can_change': can_change,
